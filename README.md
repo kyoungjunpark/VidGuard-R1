@@ -71,9 +71,23 @@ bash src/scripts/run_sft_video.sh
 ```
 
 ### 🔸 GRPO Fine-Tuning
-Likewise, prepare your dataset and annotation JSON file, and update the dataset_name:
+
+Likewise, prepare your dataset and annotation JSON file, and update the `dataset_name`:
+
 ```bash
 bash src/scripts/run_grpo_video_discriminator.sh
+```
+
+For **GRPO-TA**, run:
+
+```bash
+python src/scripts/run_grpo_video_discriminator_grpo_ta.py
+```
+
+For **GRPO-Q**, run:
+
+```bash
+python src/scripts/run_grpo_video_discriminator_grpo_q.py
 ```
 
 
