@@ -91,8 +91,6 @@ python src/scripts/run_grpo_video_discriminator_grpo_q.py
 ```
 
 
-
-
 ## ⚠️ FlashAttention Issue Fix
 If you encounter errors related to flash-attn, reinstall using:
 ```bash
@@ -134,3 +132,8 @@ Below is an example JSON format for annotated video samples:
 ]
 
 ```
+
+
+## Acknowledgements
+
+We sincerely appreciate the contributions of the open-source community. The related projects are as follows: R1-V, DeepSeek-R1, and Video-R1.
