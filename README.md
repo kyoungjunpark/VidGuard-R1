@@ -35,15 +35,41 @@ cd ..
 pip install git+https://github.com/huggingface/transformers.git@336dc69d63d56f232a183a3e7f52790429b871ef
 ```
 
-## 📁 Dataset Collection
-We are currently curating our dataset for public release. In the meantime, we recommend downloading datasets from the following benchmarks:
-- GenVideo: https://github.com/chenhaoxing/DeMamba
-- GenVidBench: https://github.com/genvidbench/GenVidBench
+## 📁 Dataset Collection & Release
+
+**🚀 New Release:** We have officially released a sampled dataset of 10,000 videos to help you get started:
+* **Dataset Link:** [VidGuard-R1-sampled-video-10k](https://huggingface.co/datasets/kyoungjunpark/VidGuard-R1-sampled-video-10k/)
+* **Contents:** This release includes 5k generated videos (2,500 HunYuanVideo-I2V & 2,5000 CogVideoX) paired with their corresponding 5k real-world videos.
+
+For large-scale training purposes, we recommend downloading related datasets from the following public benchmarks:
+* **GenVideo:** https://github.com/chenhaoxing/DeMamba
+* **GenVidBench:** https://github.com/genvidbench/GenVidBench
+
+### 🎬 Video Generation & Prompting
+
+To generate the fake videos for our dataset, we relied on specific prompt lists and initial frames:
+
+* **For InternVid videos:** We utilized captions directly from the OpenGVLab dataset:
+    [OpenGVLab/InternVid-10M-FLT-INFO](https://huggingface.co/datasets/OpenGVLab/InternVid-10M-FLT-INFO/viewer)
+* **For ActivityNet videos:** While there is currently a public caption dataset available ([friedrichor/ActivityNet_Captions](https://huggingface.co/datasets/friedrichor/ActivityNet_Captions)), it was not released at the time of our research. Therefore, we generated the necessary prompts using our own pipeline. 
+
+Our custom prompt for ActivityNet caption generation was:
+
+```text
+You are an expert video analysis AI. I will provide a video as input. Your task is to write a highly detailed, objective, and comprehensive visual description of the video, matching the style of a professional scene breakdown.
+Please analyze the video carefully and ensure your description covers the following core aspects. You may format the output either as a structured list with bolded categories (e.g., Setting, Subjects, Lighting and Ambiance) or as cohesive, descriptive paragraphs.
+Your response must include:
+Introduction: Start with a sentence summarizing the overall scene, the setting, and the likely context or event taking place.
+Setting and Environment: Describe the background, location, visible objects, props, and any text or signage.
+Subjects and Actions: Detail the people or main subjects in the video. Describe their appearance, clothing, and their specific, deliberate movements or interactions.
+Lighting, Ambiance, and Textures: Describe the lighting quality (e.g., bright, soft, professional), the overall mood or atmosphere, and specific visual textures if relevant.
+Conclusion: End with a summarizing sentence that captures the core essence or main focus of the video.
+Keep the tone purely descriptive, observant, and strictly based on visual evidence without adding subjective personal opinions.
+```
+
 ## 🧠 CoT Annotation Collection
 
-You must generate a JSON file for CoT annotations and place it under: src/r1-v/Video-Ours-data/{dataset_name}.json
-
-
+You must generate a JSON file for CoT annotations and place it under: `src/r1-v/Video-Ours-data/{dataset_name}.json`
 
 ### 📝 Prompt Templates
 
@@ -65,7 +91,7 @@ python src/generate_cot_vllm.py
 
 ## 🎯 Training
 ### 🔹 Supervised Fine-Tuning (CoT)
-Make sure you have the training dataset and annotation JSON ready. Update the dataset_name parameter in the script:
+Make sure you have the training dataset and annotation JSON ready. Update the `dataset_name` parameter in the script:
 ```bash
 bash src/scripts/run_sft_video.sh
 ```
@@ -89,7 +115,6 @@ For **GRPO-Q**, run:
 ```bash
 python src/scripts/run_grpo_video_discriminator_grpo_q.py
 ```
-
 
 ## ⚠️ FlashAttention Issue Fix
 If you encounter errors related to flash-attn, reinstall using:
@@ -127,12 +152,9 @@ Below is an example JSON format for annotated video samples:
     "solution": "<answer>B</answer>",
     "path": "Gen-Video/Youku_1M_10s_unzipped/Youku_1M_10s/0500000_0509999/yplug_pre_train_0503825_35_10.mp4",
     "data_source": null
-  },
-  ...
+  }
 ]
-
 ```
-
 
 ## Acknowledgements
 
