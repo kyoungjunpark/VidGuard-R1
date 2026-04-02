@@ -1,4 +1,8 @@
+
+
 # VidGuard-R1: Setup & Usage Guide
+
+🌐 **Project Page:** [https://vidguard-r1.github.io/](https://vidguard-r1.github.io/)
 
 VidGuard-R1 is a video reasoning model trained to distinguish real-world videos from those synthesized by AI generators. This guide provides full instructions on environment setup, data preparation, prompt engineering for Chain-of-Thought (CoT) reasoning, and training execution using both supervised fine-tuning and GRPO.
 
@@ -32,7 +36,7 @@ cd ..
 
 ## 🔄 Install transformers (specific dev version)
 ```bash
-pip install git+https://github.com/huggingface/transformers.git@336dc69d63d56f232a183a3e7f52790429b871ef
+pip install git+[https://github.com/huggingface/transformers.git@336dc69d63d56f232a183a3e7f52790429b871ef](https://github.com/huggingface/transformers.git@336dc69d63d56f232a183a3e7f52790429b871ef)
 ```
 
 ## 📁 Dataset Collection & Release
@@ -49,9 +53,8 @@ For large-scale training purposes, we recommend downloading related datasets fro
 
 To generate the fake videos for our dataset, we relied on specific prompt lists and initial frames:
 
-* **For InternVid videos:** We utilized captions directly from the OpenGVLab dataset:
-    [OpenGVLab/InternVid-10M-FLT-INFO](https://huggingface.co/datasets/OpenGVLab/InternVid-10M-FLT-INFO/viewer)
-* **For ActivityNet videos:** While there is currently a public caption dataset available ([friedrichor/ActivityNet_Captions](https://huggingface.co/datasets/friedrichor/ActivityNet_Captions)), it was not released at the time of our research. Therefore, we generated the necessary prompts using our own pipeline. 
+* **For InternVid videos:** We utilized captions directly from the OpenGVLab dataset: [OpenGVLab/InternVid-10M-FLT-INFO](https://huggingface.co/datasets/OpenGVLab/InternVid-10M-FLT-INFO/viewer)
+* **For ActivityNet videos:** While there is currently a public caption dataset available ([friedrichor/ActivityNet_Captions](https://huggingface.co/datasets/friedrichor/ActivityNet_Captions)), it was not released at the time of our research. Therefore, we generated the necessary prompts using our own pipeline. 
 
 Our custom prompt for ActivityNet caption generation was:
 
@@ -120,42 +123,56 @@ python src/scripts/run_grpo_video_discriminator_grpo_q.py
 If you encounter errors related to flash-attn, reinstall using:
 ```bash
 pip uninstall flash-attn -y
-pip install git+https://github.com/Dao-AILab/flash-attention.git
+pip install git+[https://github.com/Dao-AILab/flash-attention.git](https://github.com/Dao-AILab/flash-attention.git)
 ```
 
 ## 📄 JSON Format Example
 Below is an example JSON format for annotated video samples:
 ```json
 [
-  {
-    "problem_id": 1,
-    "problem": "<video> Decide whether a video looks a real one or a generated from the AI world model. Respond with one of these two labels inside the <answer></answer>: Real and Generated.",
-    "data_type": "video",
-    "problem_type": "multiple choice",
-    "options": [
-      "A. The generated video from the AI model",
-      "B. The real-world video"
-    ],
-    "solution": "<answer>B</answer>",
-    "path": "Gen-Video/Youku_1M_10s_unzipped/Youku_1M_10s/0330000_0339999/yplug_pre_train_0334104_10_10.mp4",
-    "data_source": null
-  },
-  {
-    "problem_id": 2,
-    "problem": "<video> Decide whether a video looks a real one or a generated from the AI world model. Respond with one of these two labels inside the <answer></answer>: Real and Generated.",
-    "data_type": "video",
-    "problem_type": "multiple choice",
-    "options": [
-      "A. The generated video from the AI model",
-      "B. The real-world video"
-    ],
-    "solution": "<answer>B</answer>",
-    "path": "Gen-Video/Youku_1M_10s_unzipped/Youku_1M_10s/0500000_0509999/yplug_pre_train_0503825_35_10.mp4",
-    "data_source": null
-  }
+  {
+    "problem_id": 1,
+    "problem": "<video> Decide whether a video looks a real one or a generated from the AI world model. Respond with one of these two labels inside the <answer></answer>: Real and Generated.",
+    "data_type": "video",
+    "problem_type": "multiple choice",
+    "options": [
+      "A. The generated video from the AI model",
+      "B. The real-world video"
+    ],
+    "solution": "<answer>B</answer>",
+    "path": "Gen-Video/Youku_1M_10s_unzipped/Youku_1M_10s/0330000_0339999/yplug_pre_train_0334104_10_10.mp4",
+    "data_source": null
+  },
+  {
+    "problem_id": 2,
+    "problem": "<video> Decide whether a video looks a real one or a generated from the AI world model. Respond with one of these two labels inside the <answer></answer>: Real and Generated.",
+    "data_type": "video",
+    "problem_type": "multiple choice",
+    "options": [
+      "A. The generated video from the AI model",
+      "B. The real-world video"
+    ],
+    "solution": "<answer>B</answer>",
+    "path": "Gen-Video/Youku_1M_10s_unzipped/Youku_1M_10s/0500000_0509999/yplug_pre_train_0503825_35_10.mp4",
+    "data_source": null
+  }
 ]
 ```
 
-## Acknowledgements
+## 📑 Citation
+
+If you find our work useful, please consider citing our paper:
+
+```bibtex
+@inproceedings{park2026vidguardr,
+  title={VidGuard-R1: {AI}-Generated Video Detection and Explanation via Reasoning {MLLM}s and {RL}},
+  author={Kyoungjun Park and Yifan Yang and Juheon Yi and Shicheng Zheng and Muhammad Muaz and Yifei Shen and Dongqi Han and Caihua Shan and Lili Qiu},
+  booktitle={The Fourteenth International Conference on Learning Representations},
+  year={2026},
+  url={[https://openreview.net/forum?id=gXjOsBcXIR](https://openreview.net/forum?id=gXjOsBcXIR)}
+}
+```
+
+## 🙏 Acknowledgements
 
 We sincerely appreciate the contributions of the open-source community. The related projects are as follows: R1-V, DeepSeek-R1, and Video-R1.
